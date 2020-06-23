@@ -6,7 +6,7 @@ void addEdge(vector<pair<int,int>> g[],int u,int v,int wt){
     g[u].push_back(make_pair(v,wt));
 }
 void Init(int V,int src){
-    d.assign(V,std::numeric_limits<int>::max());
+    d.assign(V,std::numeric_limits<int>::max()-1000);
     p.assign(V,-1);
     d[src]=0;
 }
@@ -16,16 +16,14 @@ void relax(int u,int v, int wt){
         p[v]=u;
     }
 }
-bool BFord(vector<pair<int,int>> g[],int V,int E,int s){
+bool BFord(vector<pair<int,int>> g[],int V,int s){
     Init(V,s);
-    for(int i=1;i<=V-1;i++){
-        for(int u=0;u< V;u++){
-            for(auto it = g[u].begin();it != g[u].end();it++){
-                int v=it->first;
-                int wt=it->second;
-                relax(u,v,wt);
-            }   
-        }
+    for(int u=0;u< V;u++){
+        for(auto it = g[u].begin();it != g[u].end();it++){
+            int v=it->first;
+            int wt=it->second;
+            relax(u,v,wt);
+        }   
     }
     for(int u=0;u< V;u++){
         for(auto it = g[u].begin();it != g[u].end();it++){
@@ -50,7 +48,7 @@ int main(){
     addEdge(adj, 2, 3, 60); 
     addEdge(adj, 3, 4, 70);
     addEdge(adj, 1, 4, -10); 
-    if(BFord(adj, V ,E,0)){
+    if(BFord(adj, V,0)){
         printf("No -ve Cycle\n");
         printf("\nDistance from Source are : ");
         for(int i=0;i<V;i++){
