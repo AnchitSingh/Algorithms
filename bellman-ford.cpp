@@ -18,12 +18,14 @@ void relax(int u,int v, int wt){
 }
 bool BFord(vector<pair<int,int>> g[],int V,int s){
     Init(V,s);
-    for(int u=0;u< V;u++){
-        for(auto it = g[u].begin();it != g[u].end();it++){
-            int v=it->first;
-            int wt=it->second;
-            relax(u,v,wt);
-        }   
+    for(int i=1;i<=n-1;i++){
+        for(int u=0;u< V;u++){
+            for(auto it = g[u].begin();it != g[u].end();it++){
+                int v=it->first;
+                int wt=it->second;
+                relax(u,v,wt);
+            }   
+        }
     }
     for(int u=0;u< V;u++){
         for(auto it = g[u].begin();it != g[u].end();it++){
